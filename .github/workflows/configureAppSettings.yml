@@ -11,7 +11,7 @@ jobs:
         mask-inputs: false
         slot-name: 'Production'  # Optional and needed only if the settings have to be configured on the specific deployment slot
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C84ABECEBD846748CE902C3E2E709E2 }}
-        app-settings-json: '[{ "name": "APP_SETTING_TEST", "value": "1", "slotSetting": false }]'
+        app-settings-json: '${{ secrets.APP_SETTINGS }}'
       id: settings
     - run: echo "The webapp-url is ${{ steps.settings.outputs.webapp-url }}"
     - run: |
