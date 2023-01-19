@@ -68,3 +68,6 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C84ABECEBD846748CE902C3E2E709E2 }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
+          myappsetting1: 'appsetting1'
+          myappsetting2: 'appsetting2'
+          myappsetting3: 'appsetting3'
