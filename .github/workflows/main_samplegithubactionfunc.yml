@@ -72,6 +72,7 @@ jobs:
           
 
       - name: 'Update App Settings'
+        uses: azure/appservice-settings@v1
         with:
           app-name: 'SampleGitHubActionFunc'
           slot-name: 'Production'  # Optional and needed only if the settings have to be configured on the specific deployment slot
