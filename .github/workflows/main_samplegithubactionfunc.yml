@@ -69,3 +69,15 @@ jobs:
           scm-do-build-during-deployment: true
           enable-oryx-build: true
           myappsetting1: 'appsetting1'
+          
+
+      - name: 'Update App Settings'
+        with:
+          app-name: 'SampleGitHubActionFunc'
+          slot-name: 'Production'  # Optional and needed only if the settings have to be configured on the specific deployment slot
+          app-settings-json: '${{ secrets.APP_SETTINGS }}' 
+          connection-strings-json: '${{ secrets.CONNECTION_STRINGS }}'
+          general-settings-json: '{"AppSettings1": "setting1", "AppSettings2": "setting2"}' #'General configuration settings as Key Value pairs'
+        id: settings
+      - run: echo "The webapp-url is ${{ steps.settings.outputs.webapp-url }}"
+      - run: |
