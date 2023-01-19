@@ -3,15 +3,19 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
+    - uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - uses: azure/appservice-settings@v1
       with:
-        app-name: 'SampleGitHubActionFunc'
-        mask-inputs: false
-        slot-name: 'Production'  # Optional and needed only if the settings have to be configured on the specific deployment slot
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C84ABECEBD846748CE902C3E2E709E2 }}
-        app-settings-json: '${{ secrets.APP_SETTINGS }}'
+        app-name: 'my-app'
+        slot-name: 'staging'  # Optional and needed only if the settings have to be configured on the specific deployment slot
+        app-settings-json: '${{ secrets.APP_SETTINGS }}' 
+        connection-strings-json: '${{ secrets.CONNECTION_STRINGS }}'
+        general-settings-json: '{"alwaysOn": "false", "webSocketsEnabled": "true"}' #'General configuration settings as Key Value pairs'
       id: settings
     - run: echo "The webapp-url is ${{ steps.settings.outputs.webapp-url }}"
     - run: |
+        az logout
