@@ -70,18 +70,3 @@ jobs:
           scm-do-build-during-deployment: true
           enable-oryx-build: true
           myappsetting1: 'appsetting1'
-          
-
-      - name: 'Update App Settings'
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: 'SampleGitHubActionFunc'
-          slot-name: 'Production'  # Optional and needed only if the settings have to be configured on the specific deployment slot
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C84ABECEBD846748CE902C3E2E709E2 }}
-          app-settings-json: '${{ secrets.APP_SETTINGS }}' 
-          connection-strings-json: '${{ secrets.CONNECTION_STRINGS }}'
-          general-settings-json: '{"AppSettings1": "setting1", "AppSettings2": "setting2"}' #'General configuration settings as Key Value pairs'
-        id: settings
-      - run: echo "The webapp-url is ${{ steps.settings.outputs.webapp-url }}"
-      - run: |
